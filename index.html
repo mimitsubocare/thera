@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f7cfd3">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<title>耳つぼケア レシピ帳｜セラピスト版</title>
+<!-- build: 20261005-THERAPIST-01 -->
+
+<link rel="apple-touch-icon" sizes="180x180" href="./THERAPIST.PNG?v=20261005-1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="耳つぼレシピ">
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f7cfd3;color:#382d2b;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif}
+.wrap{max-width:540px;margin:auto;padding:16px}
+.card{background:#fffdfd;border-radius:24px;padding:18px;margin-bottom:14px;box-shadow:0 7px 20px #8b53651a}
+.logo{width:92px;height:92px;object-fit:contain;border-radius:50%;display:block;margin:0 auto 8px}
+h1{font-size:28px;color:#7e3049;text-align:center;margin:4px 0}
+.sub{text-align:center;color:#8b6874;font-size:13px;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:12px}
+.recipeBtn{border:0;border-radius:16px;padding:13px 8px;background:#fff;border:1.5px solid #edcbd6;color:#653848;font-size:15px;font-weight:800;box-shadow:0 3px 8px #0000000a}
+.recipeBtn:active{transform:scale(.98)}
+#detail{display:none}
+.recipeNav{display:grid;grid-template-columns:1fr 1.35fr 1fr;gap:7px;margin-bottom:10px}
+.recipeNav button{border:0;background:#eee4e7;color:#604b52;border-radius:14px;padding:10px 6px;font-weight:800;font-size:12px;white-space:nowrap}
+.recipeNav button:disabled{opacity:.35}
+.recipeChara{width:110px;height:110px;object-fit:contain;display:block;margin:10px auto 0}
+.title{font-size:27px;font-weight:900;color:#7e3049;margin:8px 0 4px;text-align:center}
+.ear{position:relative;width:min(88vw,390px);margin:12px auto}
+.ear img{display:block;width:100%;border-radius:18px}
+.dot{position:absolute;width:25px!important;height:25px!important;min-width:25px;min-height:25px;aspect-ratio:1/1;border-radius:50%!important;transform:translate(-50%,-50%);border:3px solid white;box-shadow:0 2px 8px #0006;display:block;flex:none}
+.dot.front{background:#e55e91}
+.dot.back{background:#8060ad;padding:0!important}
+.dot.stim{background:#4daaaa}
+.dot.white{background:#fff;border-color:#d9d2d4}
+.row{padding:13px 14px;border:1.5px solid #efd7df;border-radius:16px;margin:9px 0;background:#fff}
+.row b{font-size:18px;color:#79374d}
+.effect{margin-top:5px;line-height:1.55;color:#5d5154}
+.note{font-size:12px;line-height:1.55;color:#7d6d72;background:#fff6f8;border-radius:13px;padding:11px;margin-top:14px}
+.empty{text-align:center;padding:18px;color:#876d76}
+
+/* entrance lock */
+#lockScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.lockCard{width:min(100%,430px);background:#fffdfd;border-radius:28px;padding:28px 22px;box-shadow:0 10px 30px #8b53652b;text-align:center}
+.lockLogo{width:105px;height:105px;object-fit:contain;border-radius:50%;margin:0 auto 10px;display:block}
+.lockTitle{font-size:27px;font-weight:900;color:#7e3049;margin:5px 0 7px}
+.lockText{font-size:14px;color:#8b6874;line-height:1.7;margin-bottom:18px}
+#passwordInput{width:100%;border:2px solid #efd3dc;background:#fff;border-radius:16px;padding:14px;font-size:20px;text-align:center;letter-spacing:4px;outline:none}
+#passwordInput:focus{border-color:#d68ba3}
+#unlockBtn{width:100%;border:0;border-radius:16px;padding:14px;margin-top:11px;background:#7e3049;color:#fff;font-size:16px;font-weight:900}
+#unlockBtn:active{transform:scale(.98)}
+#lockError{min-height:24px;margin-top:10px;color:#b33c61;font-size:14px;font-weight:800}
+#app{display:none}
+</style>
+</head>
+
+<body>
+
+<div id="lockScreen">
+  <div class="lockCard">
+    <img class="lockLogo" src="mcs_logo.PNG?v=20261005-1" alt="MCS">
+    <div class="lockTitle">耳つぼケア レシピ帳</div>
+    <div class="lockText">
+      セラピスト版<br>
+      このアプリは限定公開です🔐<br>
+      パスワードを入れてな
+    </div>
+    <input id="passwordInput" type="password" inputmode="numeric" autocomplete="off" placeholder="パスワード">
+    <button id="unlockBtn">レシピ帳をひらく</button>
+    <div id="lockError"></div>
+  </div>
+</div>
+
+<div id="app">
+<div class="wrap">
+
+<section id="menu" class="card">
+  <img class="logo" src="mcs_logo.PNG?v=20261005-1" alt="MCS">
+  <h1>耳つぼケア レシピ帳</h1>
+  <div class="sub">
+    セラピスト版<br>
+    気になる項目をポチッ👆<br>
+    耳のどこを使うか、パッと確認できるで
+  </div>
+  <div id="grid" class="grid"></div>
+  <div class="note">
+    ※協会テキストの学習・確認用。耳の形や位置には個人差があります。細かい位置は協会テキストで確認してください。
+  </div>
+</section>
+
+<section id="detail" class="card">
+  <div class="recipeNav">
+    <button id="prevBtn">← 前のレシピ</button>
+    <button id="backBtn">レシピ一覧に戻る</button>
+    <button id="nextBtn">次のレシピ →</button>
+  </div>
+
+  <div id="recipeTitle" class="title"></div>
+
+  <div class="ear">
+    <img id="earImg" src="ear_base.PNG?v=20261005-1" alt="耳">
+    <div id="dots"></div>
+  </div>
+
+  <div id="hiddenEarWrap" class="ear" style="display:none">
+    <img id="hiddenEarImg" src="ear_hidden.PNG?v=20261005-1" alt="耳の裏側">
+    <div id="hiddenDots"></div>
+  </div>
+
+  <img id="recipeChara" class="recipeChara" src="mcs_start.PNG?v=20261005-1" alt="">
+  <div id="rows"></div>
+
+  <div class="note">
+    ※基本座標「耳つぼ どこやねん！」以外の耳つぼは協会テキストを基準にしています。
+  </div>
+</section>
+
+</div>
+</div>
+
+<script>
+const APP_PASSWORD="3315";
+const ACCESS_KEY="mcs_recipe_therapist_access_v1";
+
+function showApp(){
+  document.getElementById("lockScreen").style.display="none";
+  document.getElementById("app").style.display="block";
+}
+
+function unlockApp(){
+  const input=document.getElementById("passwordInput");
+  const error=document.getElementById("lockError");
+
+  if(input.value===APP_PASSWORD){
+    try{localStorage.setItem(ACCESS_KEY,"ok")}catch(e){}
+    error.textContent="";
+    showApp();
+    window.scrollTo(0,0);
+  }else{
+    error.textContent="ちゃうで🤣 もう一回。";
+    input.value="";
+    input.focus();
+  }
+}
+
+document.getElementById("unlockBtn").addEventListener("click",unlockApp);
+document.getElementById("passwordInput").addEventListener("keydown",e=>{
+  if(e.key==="Enter") unlockApp();
+});
+
+try{
+  if(localStorage.getItem(ACCESS_KEY)==="ok") showApp();
+}catch(e){}
+
+const F={
+  "神門":[45.7,27.8],
+  "角窩中":[39.7,26.9],
+  "内生殖器":[33,25.3],
+  "交感":[31.7,30.5],
+  "坐骨神経":[40.2,32.5],
+  "股関節":[73.2,21.5],
+  "膝":[70.6,17.4],
+  "踝":[64.5,13.7],
+  "風渓":[78.5,24.2],
+  "腰仙椎":[78.3,27.6],
+  "胸椎":[82.2,52.7],
+  "頸椎":[73.3,62.8],
+  "腕":[77.8,25],
+  "肘":[83.9,32.9],
+  "肩":[85.1,47.1],
+  "鎖骨":[76,59.5],
+  "後頭":[66.4,64.2],
+  "側頭":[49.9,64.4],
+  "前頭":[37.7,72.3],
+  "大脳皮質下":[48.5,64.6],
+  "顎":[51.8,76.8],
+  "歯":[25.6,79.9],
+  "内耳":[50.7,88.8],
+  "目":[36.6,87.4],
+  "扁桃体":[33.7,94.1],
+  "内分泌":[29,66.6],
+  "三焦":[30.3,64.6],
+  "肺":[44.5,56.6],
+  "心":[39.6,56.6],
+  "気管":[35.9,55.1],
+  "副腎":[27.3,55.7],
+  "飢点":[18.9,55.1],
+  "内鼻":[32.2,53.1],
+  "咽喉":[31.9,46.6],
+  "口":[34.7,49.1],
+  "食道":[40.6,50.4],
+  "噴門":[53,51.9],
+  "胃":[65.8,52.2],
+  "小腸":[50.7,44],
+  "大腸":[36.3,38.6],
+  "腎":[53.2,35.6],
+  "膀胱":[42.1,34.4],
+  "艇角":[31.2,32.9],
+  "肝":[64.4,41.3],
+  "脾":[65.8,56.3],
+  "耳中":[49.7,47.4],
+  "肛門":[39.2,10.3],
+  "耳先":[58.2,5.9],
+  "耳輪":[85.7,23.3]
+};
+
+/* セラピスト版：レシピ1〜15 */
+const recipes=[
+{"n":1,"t":"小顔美人","p":[["腎炎点","むくみ・小顔","front",[63,65]],["かかん","顎の釣り上げ","front",[55,74]],["面頬","頬の釣り上げ","front",[47,83]]]},
+{"n":2,"t":"ツヤ肌","p":[["神門","ストレス緩和、自律神経の調整","front",null,"pink"],["副腎","副腎皮質ホルモンの調整","front",null,"pink"],["肺","水分調整、皮膚炎","front",null,"pink"],["大腸","代謝、便秘","front",null,"white"]]},
+{"n":3,"t":"風邪予防","p":[["神門","ストレス緩和、消炎、自律神経の調整","front"],["肺","水分調整、風邪、気の巡り","front"],["副腎","副腎皮質ホルモンの調整","front"]]},
+{"n":4,"t":"花粉対策","p":[["神門","ストレス緩和、消炎、自律神経の調整","front"],["肺","水分調整、風邪、皮膚炎、気の巡り","front"],["副腎","副腎皮質ホルモンの調整","front"],["内鼻（裏）","鼻水、鼻づまり","back",F["内鼻"],null,"ear_hidden.PNG"],["目","目のかゆみ","front"]]},
+{"n":5,"t":"肩こり","p":[["神門","ストレス緩和、消炎、自律神経の調整","front"],["肩","肩こり","front"],["肝（右）","血行促進","front",null,"white"]]},
+{"n":6,"t":"腰痛","p":[["神門","ストレス緩和、消炎、自律神経の調整","front"],["腰仙椎","腰痛","front"],["坐骨神経","坐骨神経痛","front"]]},
+{"n":7,"t":"目の疲れ","p":[["神門","ストレス緩和、消炎、自律神経の調整","front"],["肝（右）","血行促進、目の疲れ、不眠","front",null,"white"],["目","目の疲れ","front"]]},
+{"n":8,"t":"頑張れ受験生","p":[["大脳皮質下（裏）","集中力アップ","back",F["大脳皮質下"],"back"],["目","目の疲れ","front"],["神門","ストレス緩和、消炎、自律神経の調整","front"],["副腎","抵抗力アップ","front"]]},
+{"n":9,"t":"むくみ","p":[["肺","水分調整、腎の働きを助ける","front"],["腎","めまい、耳鳴り、むくみ、難聴、デトックス","front",null,"white"],["神門","ストレス緩和、消炎、自律神経の調整","front"]]},
+{"n":10,"t":"ダイエット","p":[["神門","ストレス緩和、消炎、自律神経の調整","front"],["飢点","食欲を抑える","front"],["肺","水分調整、気の巡り","front"],["大腸","代謝、便秘","front",null,"white"],["小腸","消化、吸収","front"],["腎","むくみ、デトックス","front",null,"white"]]},
+{"n":11,"t":"耳鳴り","p":[["神門","ストレス緩和、消炎、自律神経の調整","front"],["耳迷根（裏）","自律神経の調整","back",[83.5,45.7],null,"ear_back.PNG"],["腎","めまい、耳鳴り、むくみ、難聴、デトックス","front",null,"white"],["内耳","メニエル、めまい、耳鳴り、中耳炎","front"]]},
+{"n":12,"t":"めまい","p":[["神門","ストレス緩和、消炎、自律神経の調整","front"],["耳迷根（裏）","自律神経の調整","back",[83.5,45.7],null,"ear_back.PNG"],["腎","水分調整","front",null,"white"],["内耳","メニエル、めまい","front"]]},
+{"n":13,"t":"不眠","p":[["大脳皮質下（裏）","神経を落ち着かせる","back",F["大脳皮質下"],"back"],["目","目の疲れ","front"],["神門","ストレス緩和、消炎、自律神経の調整","front"],["肝（右）","気分を静める、不眠","front",null,"white"]]},
+{"n":14,"t":"ファイト一発","p":[["神門","ストレス緩和、消炎、自律神経の調整","front"],["肝（右）","血行促進","front",null,"white"],["副腎","副腎皮質ホルモンの調整","front"]]},
+{"n":15,"t":"妊活","p":[["内生殖器","月経不順、生理痛","front"],["腰仙椎","腰痛","front"],["内分泌（刺激のみ）","ホルモンの調整","stim"],["肝（右）","血行促進","front",null,"white"]]}
+];
+
+const charaImages=["mcs_start.PNG","mcs_study.PNG","mcs_correct.PNG"];
+
+const aliases={
+  "肝（右）":"肝",
+  "脾（左）":"脾",
+  "内分泌（刺激のみ）":"内分泌",
+  "内鼻（裏）":"内鼻",
+  "大脳皮質下（裏）":"大脳皮質下",
+  "耳迷根（裏）":"耳迷根",
+  "腕（表）":"腕",
+  "腕（裏）":"腕"
+};
+
+let currentRecipeIndex=-1;
+
+function updateRecipeNav(){
+  const prev=document.getElementById("prevBtn");
+  const next=document.getElementById("nextBtn");
+  if(!prev||!next)return;
+  prev.disabled=currentRecipeIndex<=0;
+  next.disabled=currentRecipeIndex<0||currentRecipeIndex>=recipes.length-1;
+}
+
+function renderList(q=""){
+  const g=document.getElementById("grid");
+  g.innerHTML="";
+
+  const a=recipes.filter(r=>
+    (r.n+" "+r.t+" "+r.p.flat().join(" ")).toLowerCase().includes(q.toLowerCase())
+  );
+
+  if(!a.length){
+    g.innerHTML='<div class="empty" style="grid-column:1/-1">見つからへんかった🤣</div>';
+    return;
+  }
+
+  a.forEach(r=>{
+    let b=document.createElement("button");
+    b.className="recipeBtn";
+    b.innerHTML=`<small>レシピ${r.n}</small><br>${r.t}`;
+    b.onclick=()=>openRecipe(r);
+    g.appendChild(b);
+  });
+}
+
+function pointName(name){
+  return aliases[name]||name;
+}
+
+function openRecipe(r){
+  currentRecipeIndex=recipes.findIndex(x=>x.n===r.n);
+  updateRecipeNav();
+
+  const menuEl=document.getElementById("menu");
+  const detailEl=document.getElementById("detail");
+  const recipeTitleEl=document.getElementById("recipeTitle");
+  const dotsEl=document.getElementById("dots");
+  const rowsEl=document.getElementById("rows");
+  const earImgEl=document.getElementById("earImg");
+  const recipeCharaEl=document.getElementById("recipeChara");
+  const hiddenEarWrapEl=document.getElementById("hiddenEarWrap");
+  const hiddenDotsEl=document.getElementById("hiddenDots");
+
+  hiddenEarWrapEl.style.display="none";
+  hiddenDotsEl.innerHTML="";
+  menuEl.style.display="none";
+  detailEl.style.display="block";
+
+  recipeCharaEl.src=
+    charaImages[Math.floor(Math.random()*charaImages.length)]+"?v=20261005-1";
+
+  recipeTitleEl.textContent=`レシピ${r.n}：${r.t}`;
+  dotsEl.innerHTML="";
+  rowsEl.innerHTML="";
+  earImgEl.src="ear_base.PNG?v=20261005-1";
+
+  r.p.forEach((x,idx)=>{
+    let name=x[0];
+    let base=pointName(name);
+    let mode=x[2]||"front";
+    let custom=x[3]||null;
+    let isBack=mode==="back"||name.includes("（裏）");
+    let pos=custom||(!isBack?F[base]:null);
+
+    if(pos){
+      let d=document.createElement("span");
+
+      d.className="dot "+(
+        base==="大脳皮質下"
+          ?"back"
+          :(mode==="stim"
+            ?"stim"
+            :(x[4]==="white"
+              ?"white"
+              :(isBack?"back":"front")))
+      );
+
+      d.style.left=pos[0]+"%";
+      d.style.top=pos[1]+"%";
+      d.title=name;
+
+      if(x[5]){
+        hiddenEarWrapEl.style.display="block";
+        document.getElementById("hiddenEarImg").src=x[5]+"?v=20261005-1";
+        hiddenDotsEl.appendChild(d);
+      }else{
+        dotsEl.appendChild(d);
+      }
+    }
+
+    let rr=document.createElement("div");
+    rr.className="row";
+    rr.innerHTML=`<b>${idx+1}. ${name}</b><div class="effect">${x[1]}</div>`;
+    rowsEl.appendChild(rr);
+  });
+
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+document.getElementById("backBtn").onclick=()=>{
+  document.getElementById("detail").style.display="none";
+  document.getElementById("menu").style.display="block";
+  window.scrollTo({top:0,behavior:"smooth"});
+};
+
+document.getElementById("prevBtn").onclick=()=>{
+  if(currentRecipeIndex>0){
+    openRecipe(recipes[currentRecipeIndex-1]);
+  }
+};
+
+document.getElementById("nextBtn").onclick=()=>{
+  if(currentRecipeIndex>=0&&currentRecipeIndex<recipes.length-1){
+    openRecipe(recipes[currentRecipeIndex+1]);
+  }
+};
+
+renderList();
+</script>
+
+</body>
+</html>
